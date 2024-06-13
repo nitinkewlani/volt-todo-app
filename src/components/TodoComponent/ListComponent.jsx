@@ -1,0 +1,47 @@
+import React, { useCallback } from "react";
+import styles from "./TodoComponent.module.scss";
+import TodoItem from "./TodoItem";
+import { checkIfFunctionExists } from "./utils";
+
+const ListComponent = (props) => {
+  const {
+    list = [],
+    onRemove = (index) => {},
+    onEditDone = (index, input) => {},
+  } = { ...props };
+
+  const handleRemove = useCallback(
+    (index = 0) => {
+      if (checkIfFunctionExists(onRemove)) {
+        onRemove(index);
+      }
+    },
+    [onRemove]
+  );
+
+  const handleEditDone = useCallback(
+    (index = 0, updatedInput) => {
+      if (checkIfFunctionExists(onEditDone)) {
+        onEditDone(index, updatedInput);
+      }
+    },
+    [onEditDone]
+  );
+
+  return (
+    <div className={styles.list}>
+      {list.map((item = {}, index = 0) => (
+        <TodoItem
+          key={item?.id || index}
+          todo={{ ...item, index }}
+          onClickRemove={() => handleRemove(index)}
+          onClickEditDone={(updatedInput = {}) =>
+            handleEditDone(index, updatedInput)
+          }
+        />
+      ))}
+    </div>
+  );
+};
+
+export default ListComponent;
