@@ -77,7 +77,7 @@ const TodoItem = React.memo((props) => {
   );
 
   return (
-    <div className={styles.item}>
+    <div className={editMode ? styles.itemInEditMode : styles.item}>
       {editMode ? (
         <FormComponent className={styles.editContainer} onSubmit={handleSubmit}>
           {inputItemsList.map((item) => (

@@ -4,7 +4,8 @@ $primary-color: #5f4b8bff;
 $secondary-color: #e69a8dff;
 $white-color: #fff;
 $grey-color: #000;
-$border-radius: 2px;
+$border-radius: 0.5rem;
+$border-color: #d7d2d2;
 
 * {
   box-sizing: border-box;
@@ -25,10 +26,9 @@ $border-radius: 2px;
 
 .todoWrapper {
   font-family: "Poppins", sans-serif;
-  width: 60%;
   position: relative;
-  padding: 2rem 4rem;
-  border-radius: 8px;
+  padding: 2rem;
+  border-radius: $border-radius;
   box-shadow: 0px 0px 4px 0px $secondary-color, 0px 0px 5px 1px $primary-color;
 
   .header {
@@ -59,7 +59,7 @@ $border-radius: 2px;
       outline: none;
       text-transform: capitalize;
       border: 2px solid $primary-color;
-      padding: 0.5rem;
+      padding: 1rem 0.5rem;
       border-radius: $border-radius;
       font-size: 1rem;
       color: $primary-color;
@@ -96,8 +96,8 @@ $border-radius: 2px;
       &:focus,
       &:hover {
         background: $primary-color;
-        border-radius: 50%;
         color: $white-color;
+        border-radius: 50%;
         transition: all 0.4s ease-in-out;
         transform: scale(1.2);
         box-shadow: 0px 0px 5px 1px $secondary-color,
@@ -110,40 +110,36 @@ $border-radius: 2px;
     min-height: 25vh;
     max-height: 50vh;
     overflow-y: scroll;
-    .item {
-      background: $white-color;
+    padding: 0.5rem;
+    @include flexBox(column, flex-start, center);
+    .item,
+    .itemInEditMode {
       @include flexBox(row, space-between, center);
       width: 100%;
-      padding: 1rem 1.5rem 1rem 0;
-      &:first-child {
-        padding-top: 0;
-        &:hover {
-          margin-top: 0.5rem;
-        }
-      }
-      &:last-child {
-        padding-bottom: 0;
-        &:hover {
-          margin-bottom: 0.5rem;
-        }
-      }
+      background-color: $primary-color;
+      color: $white-color;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: $border-radius;
       &:not(:last-child) {
-        border-bottom: 1px solid #d7d2d2;
+        border-bottom: 1px solid $border-color;
       }
       .editContainer {
         @include flexBox(column, space-between, flex-start);
         > input {
           outline: none;
           border: none;
-          text-transform: capitalize;
           font-size: 1rem;
           padding: 0.25rem 0.5rem;
-          background-color: rgb(238, 233, 233);
+          border-radius: $border-radius;
+          background-color: rgb(236, 221, 218);
+          border-bottom: 2px solid $primary-color;
+          box-shadow: 0px 2px 1px $secondary-color;
           &:nth-child(1) {
             font-weight: 600;
             font-size: 1.1rem;
             word-spacing: 1px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             width: 50%;
             padding: 0.5rem;
             &::before {
@@ -154,7 +150,6 @@ $border-radius: 2px;
           &:nth-child(2) {
             font-size: 0.9rem;
             word-spacing: 1px;
-            margin-bottom: 0.5rem;
             width: 100%;
             padding: 1rem 0.5rem;
           }
@@ -195,14 +190,34 @@ $border-radius: 2px;
       }
 
       &:hover {
-        margin-left: 1.5rem;
-        width: 90%;
-        translate: all 1s ease-in-out;
-        transform: scale(1.1);
-        border: 1px solid #d7d2d2;
-        background-color: lavender;
+        transition: all 0.25s ease-in-out;
+        border: 1px solid $border-color;
         border-radius: $border-radius;
+        background-color: lavender;
+        box-shadow: 0px 0px 5px $primary-color;
         padding: 1rem;
+        color: #000;
+        .todoItemView {
+          margin-left: 1rem;
+        }
+        .buttonContainer {
+          margin-right: 1rem;
+        }
+      }
+    }
+    .itemInEditMode {
+      border: 1px solid $border-color;
+      background-color: lavender;
+      border-radius: $border-radius;
+      box-shadow: 0px 0px 5px $primary-color;
+      width: 100%;
+      &:hover {
+        .todoItemView {
+          margin-left: 0;
+        }
+        .buttonContainer {
+          margin-right: 0;
+        }
       }
     }
   }
