@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import deleteIcon from "../../assets/delete-icon.svg";
 import editIcon from "../../assets/edit-icon.png";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
@@ -16,13 +22,15 @@ import {
 const TodoItem = React.memo((props) => {
   const {
     todo = {},
+    editIndex = null,
+    setEditIndex,
     onClickRemove = () => {},
     onClickEditDone = (updatedInput = {}) => {},
   } = props;
   const { index = 0, title = "", description = "" } = { ...todo };
-  const [editMode, setEditMode] = useState(false);
   const titleRef = useRef(null);
   const [input, setInput] = useState(todo); // intialized with default todo values
+  const isEditEnabled = editIndex === index;
 
   // used to remove a specific todo item
   const handleRemove = useCallback(() => {
@@ -33,24 +41,20 @@ const TodoItem = React.memo((props) => {
 
   // used to submit updated todo item in the main state in parent container
   const handleSubmit = useCallback(
-    (event) => {
+    (event = {}) => {
       event?.preventDefault();
       if (checkIfFunctionExists(onClickEditDone)) {
         onClickEditDone(input);
-        setEditMode(false);
       }
     },
-    [onClickEditDone, setEditMode, input]
+    [onClickEditDone, input]
   );
 
   // used to start or stop editing a specific todo item
   const handleEdit = () => {
-    setEditMode((prev) => !prev);
-    if (editMode) {
+    setEditIndex(index === editIndex ? null : index);
+    if (isEditEnabled) {
       setInput(todo); // sets to initial todo item values when edit is done
-    }
-    if (titleRef.current) {
-      titleRef.current.focus();
     }
   };
 
@@ -76,9 +80,15 @@ const TodoItem = React.memo((props) => {
     [input]
   );
 
+  useEffect(() => {
+    if (isEditEnabled && titleRef.current) {
+      titleRef.current.focus();
+    }
+  }, [isEditEnabled]);
+
   return (
-    <div className={editMode ? styles.itemInEditMode : styles.item}>
-      {editMode ? (
+    <div className={isEditEnabled ? styles.itemInEditMode : styles.item}>
+      {isEditEnabled ? (
         <FormComponent className={styles.editContainer} onSubmit={handleSubmit}>
           {inputItemsList.map((item) => (
             <InputComponent {...item} key={item?.name} />

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./TodoComponent.module.scss";
 import TodoItem from "./TodoItem";
 import { checkIfFunctionExists } from "./utils";
@@ -9,6 +9,7 @@ const ListComponent = (props) => {
     onRemove = (index) => {},
     onEditDone = (index, input) => {},
   } = { ...props };
+  const [editIndex, setEditIndex] = useState(null);
 
   const handleRemove = useCallback(
     (index = 0) => {
@@ -35,9 +36,12 @@ const ListComponent = (props) => {
           key={item?.id || index}
           todo={{ ...item, index }}
           onClickRemove={() => handleRemove(index)}
-          onClickEditDone={(updatedInput = {}) =>
-            handleEditDone(index, updatedInput)
-          }
+          onClickEditDone={(updatedInput = {}) => {
+            handleEditDone(index, updatedInput);
+            setEditIndex(null);
+          }}
+          editIndex={editIndex}
+          setEditIndex={setEditIndex}
         />
       ))}
     </div>
