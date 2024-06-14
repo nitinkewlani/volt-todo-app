@@ -30,6 +30,7 @@ $border-color: #d7d2d2;
   padding: 2rem;
   border-radius: $border-radius;
   box-shadow: 0px 0px 4px 0px $secondary-color, 0px 0px 5px 1px $primary-color;
+  width: 75%;
 
   .header {
     font-size: 2rem;
@@ -142,9 +143,11 @@ $border-color: #d7d2d2;
             margin-bottom: 1rem;
             width: 50%;
             padding: 0.5rem;
-            &::before {
-              content: "Title";
-              display: inline-block;
+            position: relative;
+            &:before {
+              content: "Content Title: ";
+              font-weight: bold;
+              color: #555;
             }
           }
           &:nth-child(2) {
@@ -171,6 +174,7 @@ $border-color: #d7d2d2;
         .description {
           @include ellipsis();
           font-size: 0.9rem;
+          color: $secondary-color;
         }
       }
       .buttonContainer {
@@ -202,6 +206,17 @@ $border-color: #d7d2d2;
         }
         .buttonContainer {
           margin-right: 1rem;
+        }
+        .title {
+          color: $secondary-color;
+        }
+        .description {
+          white-space: wrap;
+          word-break: break-all;
+          font-size: 0.9rem;
+          color: $primary-color;
+          max-height: 7rem;
+          overflow-y: scroll;
         }
       }
     }
