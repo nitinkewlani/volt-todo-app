@@ -10,6 +10,7 @@ const InputComponent = React.forwardRef((props, inputRef) => {
     placeholder = "",
     className = "",
     onBlur,
+    autoComplete = false,
   } = props;
 
   const handleChange = (event) => {
@@ -34,6 +35,7 @@ const InputComponent = React.forwardRef((props, inputRef) => {
       ref={inputRef}
       className={className}
       onBlur={handleBlur}
+      autoComplete={autoComplete ? "on" : "off"}
     />
   );
 });

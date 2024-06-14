@@ -3,7 +3,7 @@ import styles from "./TodoComponent.module.scss";
 import TodoItem from "./TodoItem";
 import { checkIfFunctionExists } from "./utils";
 
-const ListComponent = (props) => {
+const ListComponent = React.forwardRef((props, listRef) => {
   const {
     list = [],
     onRemove = (index) => {},
@@ -30,7 +30,7 @@ const ListComponent = (props) => {
   );
 
   return (
-    <div className={styles.list}>
+    <div className={styles.list} ref={listRef}>
       {list.map((item = {}, index = 0) => (
         <TodoItem
           key={item?.id || index}
@@ -46,6 +46,6 @@ const ListComponent = (props) => {
       ))}
     </div>
   );
-};
+});
 
 export default ListComponent;
