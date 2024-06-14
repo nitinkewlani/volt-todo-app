@@ -30,8 +30,8 @@ $border-radius: 0.5rem;
   padding: 2rem;
   border-radius: $border-radius;
   box-shadow: 0px 0px 4px 0px $secondary-color, 0px 0px 5px 1px $primary-color;
-  width: 75%;
-  background: rgb(237, 199, 193);
+  width: 50%;
+  background: lavender;
 
   .header {
     font-size: 2rem;
@@ -78,12 +78,12 @@ $border-radius: 0.5rem;
       }
     }
     > :nth-child(1) {
-      margin-bottom: 1rem;
-      flex-basis: 50%;
+      margin-bottom: 0.5rem;
+      flex-basis: 30%;
     }
     > :nth-child(2) {
       margin-bottom: 1rem;
-      flex-basis: 60%;
+      flex-basis: 55%;
     }
     > button {
       @include flexBox(column, center, center);
@@ -213,6 +213,7 @@ $border-radius: 0.5rem;
       &:hover {
         transition: all 0.25s ease-in-out;
         border: 1px solid $border-color;
+        border-left: 5px solid $secondary-color;
         border-radius: $border-radius;
         background-color: $lavender-color;
         box-shadow: 0px 0px 5px $primary-color;
